@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<h1 class="center">Мои карты</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Карта</th>
+      <th colspan="2">Действия</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @maps.each do |map| %>
+      <tr>
+        <td><%= link_to map.title, map %></td>
+        <td><%= link_to 'Редактировать', edit_map_path(map) %></td>
+        <td><%= link_to 'Удалить', map, method: :delete, data: { confirm: 'Вы уверены?' } %></td>
+      </tr>
+    <% end %>
+    <% if @maps.empty? %>
+    <tr>
+      <td colspan="3" class="center">Пока ничего не создано :(</td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<div class="new-map-btn">
+  <%= link_to 'Добавить карту', new_map_path, class: 'btn btn-default new-map-btn' %>
+</div>
+

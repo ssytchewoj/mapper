@@ -1,0 +1,23 @@
+// Place all the styles related to the Maps controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.footer {
+  display: block;
+
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  height: 60px;
+}
+
+.center {
+  text-align: center;
+}
+
+.new-map-btn {
+  margin-left: auto;
+  margin-right: auto;
+
+  width: 150px;
+}
