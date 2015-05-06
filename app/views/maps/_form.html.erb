@@ -1,7 +1,7 @@
 <%= form_for(@map) do |f| %>
   <% if @map.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@map.errors.count, "error") %> prohibited this map from being saved:</h2>
+      <h2>Невозможо сохранить карту:</h2>
 
       <ul>
       <% @map.errors.full_messages.each do |message| %>
@@ -11,11 +11,28 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <div class="field">
+    <%= f.text_field :title, placeholder: 'Название карты' %>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Координаты</th>
+          <th>Название</th>
+          <th>Примечание</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <div class="actions center-box form-actions">
+    <button class="btn btn-primary" id="add-marker">Добавить метку</button>
+    <%= f.submit value: 'Сохранить карту', class: 'btn btn-default' %>
+    <%= link_to 'Отмена', maps_path, class: 'btn btn-default' %>
+    </div>
 <% end %>
+
+<div class="center-box map">
+  <div id="map" style='width: 800px; height: 400px;'></div>
+</div>
