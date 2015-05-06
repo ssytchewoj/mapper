@@ -1,7 +1,7 @@
 <tr class="marker-row">
   <td class="latlon"><%= marker.object.lon %> <%= marker.object.lat %></td>
-  <td><%= marker.text_field :title %></td>
-  <td><%= marker.text_field :description %></td>
+  <td><%= marker.text_field :title, class: 'title' %></td>
+  <td><%= marker.text_field :description, class: 'description' %></td>
 
 
   <td><%= marker.hidden_field :_destroy %>

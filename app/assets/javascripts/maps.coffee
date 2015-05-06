@@ -9,6 +9,7 @@ ready = ->
   }
 
   state = States.IDLE
+  markers = []
 
   button_to_idle = ->
     $('#add-marker').text('Добавить метку')
@@ -18,6 +19,23 @@ ready = ->
     $('#add-marker').text('Нажмите на карту')
     state = States.ADDING
 
+  update_markers = ->
+    handler.removeMarkers(markers)
+
+    _markers = []
+    for row in $("tbody tr:visible")
+      marker = {
+        lat: $('.lat', row).val()
+        lng: $('.lon', row).val()
+        infowindow: $('.title', row).val()
+      }
+      _markers.push(marker)
+
+    markers = handler.addMarkers(_markers)
+
+    if markers.length > 3
+      handler.bounds.extendWith(markers)
+      handler.fitMapToBounds()
 
   handler = Gmaps.build('Google')
   handler.buildMap({
@@ -32,8 +50,6 @@ ready = ->
 
     google.maps.event.addListener(handler.getMap(), 'click', (e) ->
       if States.ADDING == state
-        console.log(e.latLng)
-
         new_id = new Date().getTime()
         regexp = new RegExp("new_marker", "g")
 
@@ -45,8 +61,10 @@ ready = ->
 
         $("tbody").append(new_row)
 
+        update_markers()
         button_to_idle()
     )
+    update_markers()
   )
 
   $('#add-marker').click (e) ->
@@ -57,10 +75,10 @@ ready = ->
         button_to_idle()
 
   $('table').click (e) ->
-    console.log e
     if $(e.target).hasClass('remove-marker')
       $(e.target).prev('input[type=hidden]').val(1)
       $(e.target).closest('.marker-row').hide()
+      update_markers()
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
