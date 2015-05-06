@@ -28,8 +28,8 @@ class MapsController < ApplicationController
 
     respond_to do |format|
       if @map.save
-        format.html { redirect_to @map, notice: 'Map was successfully created.' }
-        format.json { render :show, status: :created, location: @map }
+        format.html { redirect_to root_path, notice: 'Map was successfully created.' }
+        format.json { render :show, status: :created, location: root_path }
       else
         format.html { render :new }
         format.json { render json: @map.errors, status: :unprocessable_entity }
@@ -42,8 +42,8 @@ class MapsController < ApplicationController
   def update
     respond_to do |format|
       if @map.update(map_params)
-        format.html { redirect_to @map, notice: 'Map was successfully updated.' }
-        format.json { render :show, status: :ok, location: @map }
+        format.html { redirect_to root_path, notice: 'Map was successfully updated.' }
+        format.json { render :show, status: :ok, location: root_path }
       else
         format.html { render :edit }
         format.json { render json: @map.errors, status: :unprocessable_entity }
@@ -69,6 +69,7 @@ class MapsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def map_params
-      params.require(:map).permit(:title)
+      params.require(:map).permit(:title,
+          :markers_attributes => [:id, :_destroy, :title, :description, :lon, :lat])
     end
 end

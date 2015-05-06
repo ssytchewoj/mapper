@@ -1,4 +1,12 @@
 <%= form_for(@map) do |f| %>
+    <script type="text/javascript">
+        <% marker_row_template = f.fields_for :markers, Marker.new, :child_index => 'new_marker' do |m|
+           render 'marker_fields', :marker => m
+           end %>
+        var marker_row_template = "<%= escape_javascript(marker_row_template) %>";
+    </script>
+
+
   <% if @map.errors.any? %>
     <div id="error_explanation">
       <h2>Невозможо сохранить карту:</h2>
@@ -24,10 +32,13 @@
         </tr>
       </thead>
       <tbody>
+      <%= f.fields_for :markers do |m| %>
+          <%= render 'marker_fields', :marker => m %>
+      <% end %>
       </tbody>
     </table>
     <div class="actions center-box form-actions">
-    <button class="btn btn-primary" id="add-marker">Добавить метку</button>
+    <button class="btn btn-primary" id="add-marker" type="button">Добавить метку</button>
     <%= f.submit value: 'Сохранить карту', class: 'btn btn-default' %>
     <%= link_to 'Отмена', maps_path, class: 'btn btn-default' %>
     </div>

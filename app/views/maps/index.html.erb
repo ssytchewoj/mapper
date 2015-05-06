@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <h1 class="center">Мои карты</h1>
 
 <table class="table">
@@ -13,7 +11,7 @@
   <tbody>
     <% @maps.each do |map| %>
       <tr>
-        <td><%= link_to map.title, map %></td>
+        <td><%= link_to map.title, edit_map_path(map) %></td>
         <td><%= link_to 'Редактировать', edit_map_path(map) %></td>
         <td><%= link_to 'Удалить', map, method: :delete, data: { confirm: 'Вы уверены?' } %></td>
       </tr>

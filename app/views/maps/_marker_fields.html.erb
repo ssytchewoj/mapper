@@ -1,0 +1,13 @@
+<tr class="marker-row">
+  <td class="latlon"><%= marker.object.lon %> <%= marker.object.lat %></td>
+  <td><%= marker.text_field :title %></td>
+  <td><%= marker.text_field :description %></td>
+
+
+  <td><%= marker.hidden_field :_destroy %>
+    <button type="button" class="btn btn-default remove-marker">-</button>
+  </td>
+
+  <%= marker.hidden_field :lon, class: 'lon' %>
+  <%= marker.hidden_field :lat, class: 'lat' %>
+</tr>
