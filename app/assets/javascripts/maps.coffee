@@ -22,6 +22,8 @@ ready = ->
   update_markers = ->
     handler.removeMarkers(markers)
 
+    uri = 'https://maps.googleapis.com/maps/api/staticmap?size=600x600&markers=|'
+
     _markers = []
     for row in $("tbody tr:visible")
       marker = {
@@ -30,12 +32,17 @@ ready = ->
         infowindow: $('.title', row).val()
       }
       _markers.push(marker)
+      uri += marker.lat + ',' + marker.lng + '|'
 
     markers = handler.addMarkers(_markers)
 
     if markers.length > 3
       handler.bounds.extendWith(markers)
       handler.fitMapToBounds()
+    else
+      uri += '&zoom=6'
+
+    $("#link").attr('href', uri)
 
   handler = Gmaps.build('Google')
   handler.buildMap({
