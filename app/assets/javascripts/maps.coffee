@@ -40,7 +40,7 @@ ready = ->
       handler.bounds.extendWith(markers)
       handler.fitMapToBounds()
     else
-      uri += '&zoom=6'
+      uri += '&zoom=3'
 
     $("#link").attr('href', uri)
 
